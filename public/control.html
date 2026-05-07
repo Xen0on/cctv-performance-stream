@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA_WORKER_STREAM://control</title>
+    <link rel="stylesheet" href="css/control.css">
+</head>
+
+<body>
+    <div class="scanlines"></div>
+
+    <div class="layout">
+        <header class="header">
+            <h1>DATA_WORKER_STREAM</h1>
+            <div class="header-info">
+                <span>CONNECTED: <span id="peer-count">0</span></span>
+                <label class="slot-control">
+                    SLOTS:
+                    <select id="slot-count">
+                        <option value="4">4</option>
+                        <option value="6" selected>6</option>
+                        <option value="9">9</option>
+                        <option value="12">12</option>
+                        <option value="16">16</option>
+                    </select>
+                </label>
+                <button id="layout-toggle" class="layout-btn">[ CCTV ]</button>
+                <button id="fullscreen-btn" class="layout-btn">[ FULLSCREEN ]</button>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="preview-section">
+                <canvas id="preview-canvas"></canvas>
+            </div>
+        </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/cctv-render.js"></script>
+    <script src="js/control.js"></script>
+</body>
+
+</html>

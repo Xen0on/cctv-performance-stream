@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DATA_WORKER_STREAM://connect</title>
+    <link rel="stylesheet" href="css/join.css">
+</head>
+
+<body>
+    <div class="scanlines"></div>
+
+    <div class="terminal">
+        <div class="terminal-header">
+            <span>DATA_WORKER_STREAM://connect</span>
+            <span class="blink">_</span>
+        </div>
+
+        <div class="terminal-body">
+            <div class="line">&gt; SYS_INIT...</div>
+            <div class="line status-line">
+                &gt; STATUS: <span id="status-dot" class="dot"></span> <span id="status-text">READY</span>
+            </div>
+
+            <div class="video-container">
+                <video id="preview-video" autoplay playsinline muted></video>
+                <canvas id="preview-canvas"></canvas>
+                <div class="video-overlay">
+                    <div class="corner tl"></div>
+                    <div class="corner tr"></div>
+                    <div class="corner bl"></div>
+                    <div class="corner br"></div>
+                    <div class="crosshair"></div>
+                </div>
+            </div>
+
+            <div class="mode-bar" id="mode-bar" style="display:none;">
+                <button class="mode-btn active" data-mode="normal">[ HD ]</button>
+                <button class="mode-btn" data-mode="thermal">[ THERMAL ]</button>
+                <button class="mode-btn" data-mode="surveillance">[ SURV ]</button>
+            </div>
+
+            <div class="line peer-line" style="display:none;">
+                &gt; ID: <span id="peer-id">---</span>
+            </div>
+
+            <button id="connect-btn" class="connect-btn">[ CONNECT ]</button>
+        </div>
+
+        <div class="terminal-footer">
+            <span>v1.0</span>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/join.js"></script>
+</body>
+
+</html>

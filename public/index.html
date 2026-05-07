@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA WORKER STREAM</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <pre class="ascii-logo">
+██████╗  █████╗ ████████╗ █████╗     ██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗
+██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗    ██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝██╔══██╗
+██║  ██║███████║   ██║   ███████║    ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ █████╗  ██████╔╝
+██║  ██║██╔══██║   ██║   ██╔══██║    ██║███╗██║██║   ██║██╔══██╗██╔═██╗ ██╔══╝  ██╔══██╗
+██████╔╝██║  ██║   ██║   ██║  ██║    ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗███████╗██║  ██║
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝     ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+              ███████╗████████╗██████╗ ███████╗ █████╗ ███╗   ███╗
+              ██╔════╝╚══██╔══╝██╔══██╗██╔════╝██╔══██╗████╗ ████║
+              ███████╗   ██║   ██████╔╝█████╗  ███████║██╔████╔██║
+              ╚════██║   ██║   ██╔══██╗██╔══╝  ██╔══██║██║╚██╔╝██║
+              ███████║   ██║   ██║  ██║███████╗██║  ██║██║ ╚═╝ ██║
+              ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
+</pre>
+            <p class="subtitle">:: CONSOLE ::</p>
+        </header>
+
+        <section class="server-info">
+            <h2>SYS_INFO</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">URL:</span>
+                    <span class="value" id="server-ip">LOADING...</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">STATUS:</span>
+                    <span class="value status-online">■ ONLINE</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="qr-section">
+            <h2>SCAN_TO_CONNECT</h2>
+            <div id="qrcode"></div>
+            <p class="join-url" id="join-url">LOADING...</p>
+            <p style="color: #663300; font-size: 0.9rem; margin-top: 10px;">
+                ⚠️ iPhone: Accept security warning first!
+            </p>
+        </section>
+
+        <section class="navigation">
+            <h2>ENDPOINTS</h2>
+            <div class="nav-grid">
+                <a href="/join" class="nav-card" target="_blank">
+                    <div class="nav-icon">[&gt;_]</div>
+                    <div class="nav-title">/JOIN</div>
+                    <div class="nav-desc">connect</div>
+                </a>
+                <a href="/control" class="nav-card" target="_blank">
+                    <div class="nav-icon">[###]</div>
+                    <div class="nav-title">/CTRL</div>
+                    <div class="nav-desc">operator</div>
+                </a>
+                <a href="/output" class="nav-card" target="_blank">
+                    <div class="nav-icon">[|||]</div>
+                    <div class="nav-title">/OUT</div>
+                    <div class="nav-desc">display</div>
+                </a>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h2>INIT_SEQUENCE</h2>
+            <ol>
+                <li>OPEN <strong>/control</strong> in operator terminal</li>
+                <li>OPEN <strong>/output</strong> on display [F11 = fullscreen]</li>
+                <li>BROADCAST qr_code to participants</li>
+                <li><strong>iPHONE:</strong> Accept security warning → Allow camera</li>
+                <li>EXECUTE mixing operations</li>
+            </ol>
+        </section>
+
+        <footer>
+            <p>DATA WORKER STREAM</p>
+        </footer>
+    </div>
+
+    <script>
+        async function init() {
+            try {
+                const response = await fetch('/api/server-info');
+                const info = await response.json();
+
+                document.getElementById('server-ip').textContent = info.publicUrl || info.ip;
+                document.getElementById('join-url').textContent = info.joinUrl;
+
+                new QRCode(document.getElementById('qrcode'), {
+                    text: info.joinUrl,
+                    width: 180,
+                    height: 180,
+                    colorDark: '#ff6b00',
+                    colorLight: '#000000',
+                    correctLevel: QRCode.CorrectLevel.L
+                });
+            } catch (error) {
+                console.error('SYS_ERR:', error);
+                document.getElementById('server-ip').textContent = 'ERR_LOAD';
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Subtle scanlines on output */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.08),
+            rgba(0, 0, 0, 0.08) 1px,
+            transparent 1px,
+            transparent 3px);
+    pointer-events: none;
+    z-index: 1000;
+}
+
+#output-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#branding {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.15;
+    z-index: 1001;
+    pointer-events: none;
+}
+
+#logo-text {
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #ff6b00;
+    text-align: right;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-shadow: 0 0 10px #ff6b00;
+}
+
+#branding.hidden {
+    display: none;
+}
+
+/* Corner markers */
+.corner-mark {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 107, 0, 0.2);
+    pointer-events: none;
+    z-index: 999;
+}
+
+.corner-mark.tl {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner-mark.tr {
+    top: 10px;
+    right: 10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-mark.bl {
+    bottom: 10px;
+    left: 10px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner-mark.br {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+/* Recording indicator */
+#rec-indicator {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: #ff0000;
+    z-index: 1001;
+}
+
+#rec-indicator.active {
+    display: flex;
+}
+
+#rec-indicator .rec-dot {
+    width: 10px;
+    height: 10px;
+    background: #ff0000;
+    border-radius: 50%;
+    animation: rec-blink 1s infinite;
+}
+
+@keyframes rec-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* CCTV mode — hide global overlays since each cell has its own */
+body.cctv-mode .corner-mark,
+body.cctv-mode #branding,
+body.cctv-mode #rec-indicator {
+    display: none !important;
+}
+
+body.cctv-mode::before {
+    background: repeating-linear-gradient(0deg,
+            rgba(0, 0, 0, 0.12),
+            rgba(0, 0, 0, 0.12) 1px,
+            transparent 1px,
+            transparent 2px);
+}
+
+/* Fullscreen styles */
+:-webkit-full-screen {
+    background: #000;
+}
+
+:-moz-full-screen {
+    background: #000;
+}
+
+:fullscreen {
+    background: #000;
+}

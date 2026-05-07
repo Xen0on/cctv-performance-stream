@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA WORKER STREAM</title>
+    <link rel="stylesheet" href="css/output.css">
+</head>
+
+<body>
+    <!-- Corner markers -->
+    <div class="corner-mark tl"></div>
+    <div class="corner-mark tr"></div>
+    <div class="corner-mark bl"></div>
+    <div class="corner-mark br"></div>
+
+    <canvas id="output-canvas"></canvas>
+
+    <!-- Recording indicator -->
+    <div id="rec-indicator">
+        <span class="rec-dot"></span>
+        <span>REC</span>
+    </div>
+
+    <!-- Branding -->
+    <div id="branding">
+        <div id="logo-text">
+            DATA WORKER STREAM
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/cctv-render.js"></script>
+    <script src="js/output.js"></script>
+</body>
+
+</html>
