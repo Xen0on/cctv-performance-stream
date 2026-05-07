@@ -1,4 +1,4 @@
-# 📡 CCTV PERFORMANCE STREAM
+# CCTV PERFORMANCE STREAM
 
 A live multi-phone streaming system for **performance art**, styled like industrial surveillance.
 
