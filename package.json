@@ -1,5 +1,5 @@
 {
-  "name": "data-worker-stream",
+  "name": "cctv-performance-stream",
   "version": "1.0.0",
   "description": "Live performance video/audio mixing system",
   "main": "server.js",
