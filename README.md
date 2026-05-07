@@ -1,153 +1,65 @@
-# 🏰 IMMORTAL CASTLE
+# 📡 CCTV PERFORMANCE STREAM
 
-Live performance video/audio mixing system with WebRTC.
+A live multi-phone streaming system for **performance art**, styled like industrial surveillance.
+
+Phones connect through WebRTC and appear in a CCTV-style grid (`CAM 01`, `CAM 02`...) with timestamps, REC indicators, and visual modes (HD / thermal / surveillance). Designed to run on a local WiFi — phones stream directly to the operator's laptop, then to a projector.
+
+---
 
 ## 🚀 QUICK START
 
-### 1. Install Dependencies
 ```bash
 npm install
-```
-
-### 2. Start Server
-```bash
 npm start
 ```
 
-Server auto-generates SSL certificates on first run.
+The server prints URLs on startup. Open them on the right devices:
 
-### 3. Connect Devices
+- `/control` — operator panel (your laptop)
+- `/output` — projector / fullscreen display
+- `/join` — phone participants
 
-The server will display URLs:
-```
-📱 https://192.168.x.x:3443/join    ← For phones
-🎛️  http://localhost:3000/control   ← Operator
-🖥️  http://localhost:3000/output    ← Projector
+For local-network HTTPS (required by iOS for camera access):
+```bash
+USE_LOCAL_SSL=1 npm start
 ```
 
 ---
 
-## 📱 iPHONE FIRST TIME SETUP
+## 📱 iPHONE FIRST-TIME SETUP
 
-**CRITICAL: iOS requires HTTPS for camera access!**
+iOS requires HTTPS for camera access. With self-signed local SSL:
 
-1. Open URL in **Safari** (not Chrome!)
-2. Safari shows "This Connection Is Not Private"
-3. Tap **"Show Details"**
-4. Tap **"Visit this website"**
-5. Tap **"Visit Website"** to confirm
-6. Page loads → Tap **"CONNECT"**
-7. Allow camera and microphone access
+1. Open URL in **Safari**
+2. Tap **"Show Details"** → **"Visit this website"**
+3. Tap **"Visit Website"** to confirm
+4. Allow camera & microphone
+5. Tap **CONNECT**
 
-**You only need to do this ONCE per device.**
+(You only do this once per device.)
 
 ---
 
-## 🎛️ HOW TO USE
+## 🎛️ HOW IT WORKS
 
-### Participants (Phones)
-1. Scan QR code on landing page OR type URL
-2. Accept security certificate (first time only)
-3. Allow camera/microphone
-4. Tap CONNECT
-5. You're streaming!
+- **Phones** scan the QR code, choose a visual mode (HD / thermal / surveillance), tap CONNECT
+- **Operator** sees a fixed CCTV grid (4/6/9/12/16 slots) — phones auto-fill empty slots as they connect
+- **Output** mirrors the operator's grid, fullscreen, ready for a projector
 
-### Operator (Control Interface)
-1. Open `http://localhost:3000/control` on laptop
-2. See all connected participants
-3. Control individual volumes (0-150%)
-4. Mute/unmute participants
-5. Show/hide video streams
-6. Mix audio in real-time
-
-### Output (Projector/Second Screen)
-1. Open `http://localhost:3000/output`
-2. Press F11 for fullscreen (or double-click)
-3. Pure visual output - no UI elements
-4. Connect to projector via HDMI
-
----
-
-## 📁 FILE STRUCTURE
-
-```
-immortal-castle/
-├── server.js              # HTTPS + HTTP server with Socket.io
-├── generate-ssl.js        # SSL certificate generator
-├── package.json
-├── ssl/                   # SSL certificates (auto-generated)
-│   ├── key.pem
-│   └── cert.pem
-└── public/
-    ├── index.html         # Landing page with QR code
-    ├── join.html          # Participant page
-    ├── control.html       # Operator interface
-    ├── output.html        # Clean projector output
-    ├── css/               # Styling
-    │   ├── index.css
-    │   ├── join.css
-    │   ├── control.css
-    │   └── output.css
-    └── js/
-        ├── join.js        # Phone WebRTC client
-        ├── control.js     # Mixing controls
-        └── output.js      # Output display
-```
+WebRTC media goes peer-to-peer over the local WiFi. The server is only used for signaling.
 
 ---
 
 ## 🔧 TROUBLESHOOTING
 
-### "Camera not working on iPhone"
-- ✅ Make sure URL starts with `https://`
-- ✅ Accept the security certificate warning
-- ✅ Use Safari (not Chrome on iOS)
-- ✅ Check Settings → Safari → Camera → Allow
+**iPhone camera not working** — Use Safari, accept the certificate warning, allow camera in Settings → Safari.
 
-### "ERR_SSL_PROTOCOL_ERROR"
-- Run `npm start` - certificates are auto-generated
+**Phone can't reach the laptop** — Same WiFi network, firewall allows ports 3000 / 3443.
 
-### "Cannot connect from phone"
-- ✅ Phone and laptop on same WiFi network
-- ✅ Windows Firewall allows ports 3000 and 3443
-- ✅ Try disabling antivirus temporarily
-
-### "No audio"
-- ✅ Click anywhere on the page first (unlocks audio)
-- ✅ Check master volume slider
-- ✅ Check individual peer volume sliders
-
-### "Video freezing"
-- Reduce number of visible streams
-- Check WiFi signal strength
-- Close other bandwidth-heavy apps
+**Video freezing** — Reduce visible streams, check WiFi signal.
 
 ---
 
 ## 🔒 SECURITY
 
-Self-signed certificates are safe for local network use. Don't expose this server to the internet without proper security.
-
----
-
-## ✅ TESTED ON
-
-- ✅ iPhone (Safari)
-- ✅ Android (Chrome)
-- ✅ Desktop Chrome, Firefox, Edge
-- ✅ Windows 10/11
-
----
-
-## 📞 SUPPORT
-
-Check browser DevTools (F12 → Console) for detailed logs.
-
-All WebRTC events are logged with prefixes:
-- `[JOIN]` - Phone events
-- `[CONTROL]` - Operator events
-- `[OUTPUT]` - Display events
-
----
-
-**🏰 IMMORTAL CASTLE** - Performance Art System
+Self-signed SSL is fine for local-network use. Don't expose this server publicly without proper hardening.
