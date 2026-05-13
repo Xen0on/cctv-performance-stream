@@ -288,6 +288,43 @@ body {
     box-shadow: 0 0 8px rgba(255, 107, 0, 0.5);
 }
 
+.quality-bar {
+    display: flex;
+    gap: 4px;
+    margin: 6px 0;
+    align-items: center;
+}
+
+.bar-label {
+    font-size: 0.7rem;
+    color: var(--dim);
+    padding-right: 4px;
+}
+
+.qual-btn {
+    flex: 1;
+    padding: 6px 4px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: bold;
+    background: transparent;
+    color: var(--dim);
+    border: 1px solid var(--dim);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.qual-btn:hover {
+    color: var(--orange);
+    border-color: var(--orange);
+}
+
+.qual-btn.active {
+    background: rgba(255, 107, 0, 0.15);
+    color: var(--orange);
+    border-color: var(--orange);
+}
+
 #peer-id {
     color: #0f0;
     font-weight: bold;
