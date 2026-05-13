@@ -427,9 +427,7 @@ socket.on('webrtc-offer', async (data) => {
     }
 
     try {
-        const pc = new RTCPeerConnection({
-            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-        });
+        const pc = new RTCPeerConnection(window.ICE_CONFIG);
 
         peerConnections[data.from] = pc;
 

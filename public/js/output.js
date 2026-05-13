@@ -77,9 +77,7 @@ socket.on('peer-left', (data) => {
 // ─────────────────────────────────────────────────────────────────
 
 function createPC(socketId) {
-    const pc = new RTCPeerConnection({
-        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-    });
+    const pc = new RTCPeerConnection(window.ICE_CONFIG);
 
     peerConnections[socketId] = pc;
 
